@@ -40,5 +40,11 @@ export default {
 </script>
 
 <template>
-  <Bar :data="chartData" />
+  <div class="bar-graph">
+    <Bar :data="chartData" />
+  </div>
 </template>
+
+<style>
+@import './instBarGraph.css';
+</style>

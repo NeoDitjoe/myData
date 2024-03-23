@@ -5,9 +5,9 @@ import currentView from './Routing.js'
 
 <template>
   <nav class="nav">
-    <a href="#/">Home</a> |
-    <a href="#/bargraph">About</a> |
-    <a href="#/users">Users</a>
+    <a href="#/">Installs Pie Chart</a> |
+    <a href="#/bar-graph">Installs Bar Graph</a> |
+    <a href="#/users-table">Users Table</a>
   </nav>
 
   <div class="body">

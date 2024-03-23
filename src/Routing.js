@@ -1,14 +1,14 @@
 import { ref, computed } from 'vue'
 
-import Home from './components/home/Home.vue';
+import instPieChart from './components/instPieChart/instPieChart.vue';
 import BarGraph from './components//bar-graph/Bar-graph.vue';
 import NotFound from './components/NotFound.vue'
-import Users from './components/users/Users.vue'
+import UsersTable from './components/users-table/Users-table.vue'
 
 const routes = {
-  '/': Home,
-  '/bargraph': BarGraph,
-  '/users': Users
+  '/': instPieChart,
+  '/bar-graph': BarGraph,
+  '/users-table': UsersTable
 }
 
 const currentPath = ref(window.location.hash)

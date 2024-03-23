@@ -6,7 +6,6 @@ fetch('../../../util/pieChart.json')
     console.log(data.map((item) => item.year))
   })
 
-
 import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
@@ -45,7 +44,14 @@ export default {
 
 <template>
   <div class="greetings">
-    <h1 class="green">Home</h1>
-    <Pie id="my-chart-id" :options="chartOptions" :data="chartData" />
+    <h1 class="green">Yearly Installs Pie Chart</h1>
+    <div class="pie-chart" >
+      <Pie id="my-chart-id" :options="chartOptions" :data="chartData" />
+    </div>
   </div>
 </template>
+
+
+<style>
+@import './instPieChart.css';
+</style>
