@@ -35,7 +35,8 @@ export default {
 </script>
 
 <template>
-  <button v-on:click="handleClick">click me</button>
+
+  <h1 class="green">Users Table</h1>
 
   <select>
     <option>ALL DESIGNATION</option>

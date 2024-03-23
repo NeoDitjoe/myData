@@ -40,6 +40,7 @@ export default {
 </script>
 
 <template>
+  <h1 class="green">Monthly Installs Bar Graph</h1>
   <div class="bar-graph">
     <Bar :data="chartData" />
   </div>
