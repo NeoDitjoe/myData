@@ -1,17 +1,46 @@
-<script setup>
-let userData = [];
+<script>
+import { ref } from 'vue';
 
-fetch('../../../util/users.json')
-  .then(res => res.json())
-  .then(data => userData = data );
 
 function handleClick() {
-  console.log('clicked');
+  console.log(selectedDesignation);
 }
+
+const selectedDesignation = ref('')
+
+export default {
+  data() {
+    return {
+      userData: [],
+      designation: []
+    }
+  },
+
+  mounted() {
+    fetch('../../../util/users.json')
+      .then(res => res.json())
+      .then(data => {
+        this.userData = data
+
+        const designation = data.map((item) => {
+          const designation = item.designation
+          return designation
+        })
+        this.designation = new Set(designation)
+      });
+  }
+}
+
+
 </script>
 
 <template>
-  <button @click="handleClick">click me</button>
+  <button v-on:click="handleClick">click me</button>
+
+  <select>
+    <option>ALL DESIGNATION</option>
+    <option v-for="option in designation" :key = designation>{{ option }}</option>
+  </select>
 
   <table style="border: 1px solid black;">
     <tr>
@@ -21,9 +50,9 @@ function handleClick() {
       <th>Department</th>
     </tr>
 
-    <tbody> 
-      <tr v-for="user in userData" :key="user.name">
-        <td style="border: 1px solid black;">{{ user.name }}</td>
+    <tbody>
+      <tr v-for="(user, index) in userData" :key = "user.name">
+        <td style="border: 1px solid black;">{{(index + 1) + ' - '+ user.name }}</td>
         <td style="border: 1px solid black;">{{ user.surname }}</td>
         <td style="border: 1px solid black;">{{ user.designation }}</td>
         <td style="border: 1px solid black;">{{ user.department }}</td>

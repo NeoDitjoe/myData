@@ -2,13 +2,9 @@
 
 <template>
   <!-- <button @click="backToHome">Back to home</button> -->
-  <a href="#/">Back</a> 
+  <p>Page Not Found <a href="#/">Back</a></p> 
 </template>
 
 <script setup>
-
-function backToHome(){
-
-}
 
 </script>
