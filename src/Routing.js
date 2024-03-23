@@ -1,13 +1,13 @@
 import { ref, computed } from 'vue'
 
 import Home from './components/home/Home.vue';
-import TheWelcome from './components/TheWelcome.vue';
+import BarGraph from './components//bar-graph/Bar-graph.vue';
 import NotFound from './components/NotFound.vue'
 import Users from './components/users/Users.vue'
 
 const routes = {
   '/': Home,
-  '/about': TheWelcome,
+  '/bargraph': BarGraph,
   '/users': Users
 }
 

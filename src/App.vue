@@ -6,7 +6,7 @@ import currentView from './Routing.js'
 <template>
   <nav class="nav">
     <a href="#/">Home</a> |
-    <a href="#/about">About</a> |
+    <a href="#/bargraph">About</a> |
     <a href="#/users">Users</a>
   </nav>
 
