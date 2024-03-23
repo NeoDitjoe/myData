@@ -1,6 +1,6 @@
 import { ref, computed } from 'vue'
 
-import Home from './components/Home.vue';
+import Home from './components/home/Home.vue';
 import TheWelcome from './components/TheWelcome.vue';
 import NotFound from './components/NotFound.vue'
 import Users from './components/users/Users.vue'
