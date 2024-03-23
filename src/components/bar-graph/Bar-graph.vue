@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [ 'January', 'February', 'March'],
+        labels: [],
         datasets: [
           {
             label: 'Data One',
@@ -21,7 +21,21 @@ export default {
         ]
       }
     }
+  },
+
+  mounted() {
+    fetch('../../../util/barGraph.json')
+      .then(res => res.json())
+      .then(data => {
+
+        const label = data.map((item) => {
+          const label = item.month
+          return label
+        })
+        this.labels = label
+      });
   }
+
 }
 </script>
 
