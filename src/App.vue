@@ -27,10 +27,10 @@ export default {
       <h1>Logo</h1>
     </div>
     
-    <div>
-      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/' }" to="/">Installs Bar Graph</router-link>
-      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/bar-graph' }" to="/bar-graph">Installs Bar Graph</router-link>
-      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/users-table' }" to="/users-table?page=0">Users Table</router-link>
+    <div class="menu">
+      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/' }" to="/">Installs_Bar_Graph</router-link>
+      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/bar-graph' }" to="/bar-graph">Installs_Bar_Graph</router-link>
+      <router-link @click="highlightLink" :class="{ active: this.$router.currentRoute.value.path === '/users-table' }" to="/users-table?page=0">Users_Table</router-link>
     </div>
   </nav>
 

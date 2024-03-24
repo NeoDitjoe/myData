@@ -36,8 +36,13 @@
 }
 
 
-@media only screen and (max-width: 525px) {
-  .nav {
-    flex-direction: column;
+@media only screen and (max-width: 426px) {
+  .menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .body{
+    margin-top: 100px;
   }
 }
