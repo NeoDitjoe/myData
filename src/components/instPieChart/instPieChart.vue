@@ -15,12 +15,13 @@ export default {
   components: { Pie },
   data() {
     return {
+      showLabel: null,
       chartData: {
-        labels: [],
+        labels: null,
         datasets: [
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF', '#DD1B16'],
-            data: [40, 20, 80, 10]
+            backgroundColor: ['blue', '#41B883', '#E46651', '#00D8FF', '#DD1B16' ],
+            data: null
           }
         ]
       },
@@ -34,7 +35,9 @@ export default {
     fetch('../../../util/pieChart.json')
       .then(res => res.json())
       .then(data => {
-        this.labels = data?.map((item) => item.year)
+        this.chartData.labels = data?.map((item) => item.year)
+        this.showLabel = data?.map((item) => item.year)
+        this.chartData.datasets[0].data = data?.map((item) => item.numInstalls)
       })
   }
 }
@@ -46,7 +49,7 @@ export default {
   <div class="greetings">
     <h1 class="green">Yearly Installs Pie Chart</h1>
     <div class="pie-chart" >
-      <Pie id="my-chart-id" :options="chartOptions" :data="chartData" />
+      <Pie v-if="showLabel" id="my-chart-id" :options="chartOptions" :data="chartData" />
     </div>
   </div>
 </template>
