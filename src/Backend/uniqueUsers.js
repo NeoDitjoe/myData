@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'fs';
 
-readFile('../util/usersBackEnd.json', 'utf8', (err, data) => {
+readFile('util/usersBackEnd.json', 'utf8', (err, data) => {
   if (err) {
     console.error('Failed reading file!');
     return;
@@ -17,7 +17,7 @@ readFile('../util/usersBackEnd.json', 'utf8', (err, data) => {
     );
 
     // Write unique users to uniqueUsers.json
-    writeFile('uniqueUsers.json', JSON.stringify(uniqueUsers, null, 2), (err) => {
+    writeFile('util/uniqueUsers.json', JSON.stringify(uniqueUsers, null, 2), (err) => {
       if (err) {
         console.error('Error writing uniqueUsers.json:', err);
         return;
