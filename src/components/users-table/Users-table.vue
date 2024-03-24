@@ -7,7 +7,8 @@ export default {
       designation: [],
       filteredUserData: [],
       currentPage: Number(this.$router.currentRoute.value.query.page),
-      highlightSearchResults: null
+      highlightSearchResults: null,
+      selectedDesignation: null
     };
   },
 
@@ -35,6 +36,7 @@ export default {
   methods: {
     filterByDesignation(designation) {
       this.filteredUserData = this.userData.filter(user => user.designation === designation);
+      this.selectedDesignation = this.$router.currentRoute.value.query.designation
     },
 
     designationQuery() {
@@ -113,7 +115,8 @@ export default {
   <div class="filtering">
     <form @change="designationQuery" action="#">
       <select ref="designation" class="select">
-        <option>FILTER BY DESIGNATION</option>
+        <option v-if="selectedDesignation">{{ selectedDesignation }}</option>
+        <option v-if="!selectedDesignation">FILTER BY DESIGNATION</option>
         <option v-for="option in designation" :key="option">{{ option }}</option>
       </select>
     </form>
@@ -129,7 +132,8 @@ export default {
 
   <button class="button" @click="clearDesignationQuery">Clear filter</button>
 
-  <p v-if="highlightSearchResults">Results for:{{ highlightSearchResults }}</p>
+  <p v-if="highlightSearchResults">Results for: {{ highlightSearchResults }}</p>
+  <p v-if="selectedDesignation">Results for: {{ selectedDesignation }}</p>
 
   <table style="border: 1px solid black;">
     <tr>
