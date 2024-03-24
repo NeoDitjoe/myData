@@ -1,6 +1,6 @@
 .bar-graph{
   height: 70vh;
-  width: 100%;
+  max-width: 40em;
   display: flex;
   justify-content: center;
 }
