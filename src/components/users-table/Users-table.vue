@@ -23,7 +23,7 @@ export default {
         if (designationQuery) {
           this.filterByDesignation(designationQuery);
         } else {
-          this.filteredUserData = this.userData.slice(); 
+          this.filteredUserData = this.userData.slice();
         }
       });
   },
@@ -55,7 +55,7 @@ export default {
     },
 
     clearDesignationQuery() {
-      this.$router.push({ path: '/users-table', query: {page: 0} });
+      this.$router.push({ path: '/users-table', query: { page: 0 } });
 
       setTimeout(() => {
         window.location.reload()
@@ -64,11 +64,11 @@ export default {
 
     nextPage() {
       this.$router.push({
-        path: this.$router.currentRoute.value.fullPath, 
+        path: this.$router.currentRoute.value.fullPath,
         query: {
-          ...this.$route.query,  
-          page: Number(this.$route.query.page) + 1 
-        }  
+          ...this.$route.query,
+          page: Number(this.$route.query.page) + 1
+        }
       })
       setTimeout(() => {
         window.location.reload()
@@ -76,12 +76,12 @@ export default {
     },
 
     prevPage() {
-      if(Number(this.$route.query.page) > 0){
-        this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) - 1 }  })
+      if (Number(this.$route.query.page) > 0) {
+        this.$router.push({ query: { ...this.$route.query, page: Number(this.$route.query.page) - 1 } })
 
         setTimeout(() => {
-        window.location.reload()
-      }, 100);
+          window.location.reload()
+        }, 100);
       }
     },
   },
@@ -111,10 +111,8 @@ export default {
     </tr>
 
     <tbody>
-      <tr v-for="(user, index) in filteredUserData.slice(currentPage * 10, (currentPage * 10) + 10)" 
-        :key="user.name"
-      >
-      <td class="index">{{ index + 1 +(currentPage * 10) }}</td>
+      <tr v-for="(user, index) in filteredUserData.slice(currentPage * 10, (currentPage * 10) + 10)" :key="user.name">
+        <td class="index">{{ index + 1 + (currentPage * 10) }}</td>
         <td class="td">{{ user.name }}</td>
         <td class="td">{{ user.surname }}</td>
         <td class="td">{{ user.designation }}</td>
