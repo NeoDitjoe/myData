@@ -14,7 +14,7 @@ export default {
         labels: null,
         datasets: [
           {
-            backgroundColor: ['blue', '#41B883', '#E46651', '#00D8FF', '#DD1B16' ],
+            backgroundColor: ['blue', '#41B883', '#E46651', '#00D8FF', '#DD1B16'],
             data: null
           }
         ]
@@ -40,12 +40,15 @@ export default {
 </script>
 
 <template>
-  <div class="greetings">
+
     <h1 class="green">Yearly Installs Pie Chart</h1>
-    <div class="pie-chart" >
-      <Pie v-if="showLabel" id="my-chart-id" :options="chartOptions" :data="chartData" />
+    
+    <div class="pie-container">
+      <div class="pie-chart">
+        <Pie v-if="showLabel" id="my-chart-id" :options="chartOptions" :data="chartData" class="chart" />
+      </div>
     </div>
-  </div>
+
 </template>
 
 
