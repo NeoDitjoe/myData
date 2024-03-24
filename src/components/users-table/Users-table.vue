@@ -57,12 +57,25 @@ export default {
       }, 100);
     },
 
-    searchHandler(search) {
-      this.filteredUserData = this.userData.filter(user => user.name === search);
+    searchHandler(searchInput) {
+      let searchResults = []
+
+      this.userData.map((user) => {
+        
+        if(user.designation === searchInput 
+        || user.name === searchInput 
+        || user.surname === searchInput 
+        || user.department === searchInput 
+        ){
+          searchResults.push(user)
+        }
+      });
+
+      this.filteredUserData = searchResults
     },
 
     searchQuery() {
-      this.$router.push({ query: { page: 0, search: this.$refs.searchValue.value } });
+      this.$router.push({ query: { page: 0, search: this.$refs.searchValue.value.toUpperCase() } });
 
       setTimeout(() => {
         window.location.reload()
@@ -121,7 +134,7 @@ export default {
       e.preventDefault()
       searchQuery()
     }" class="search">
-      <input  type="text" name="search" ref="searchValue"  placeholder="Search..."/>
+      <input required type="text" name="search" ref="searchValue"  placeholder="Search..."/>
       <button class="button">Search</button>
     </form>
   </div>
