@@ -20,8 +20,11 @@ export default {
         this.designation = new Set(designation);
 
         const designationQuery = this.$route.query.designation;
+        const searchQuery = this.$route.query.search;
         if (designationQuery) {
           this.filterByDesignation(designationQuery);
+        } else if (searchQuery) {
+          this.searchHandler(searchQuery)
         } else {
           this.filteredUserData = this.userData.slice();
         }
@@ -30,9 +33,9 @@ export default {
 
   watch: {
     '$route.query.designation': {
-      handler(newDesignation) {
-        if (newDesignation) {
-          this.filterByDesignation(newDesignation);
+      handler(selectedDesignation) {
+        if (selectedDesignation) {
+          this.filterByDesignation(selectedDesignation);
         } else {
           this.filteredUserData = this.userData.slice();
         }
@@ -49,6 +52,18 @@ export default {
 
     designationQuery() {
       this.$router.push({ query: { page: 0, designation: this.$refs.designation.value } });
+      setTimeout(() => {
+        window.location.reload()
+      }, 100);
+    },
+
+    searchHandler(search) {
+      this.filteredUserData = this.userData.filter(user => user.name === search);
+    },
+
+    searchQuery() {
+      this.$router.push({ query: { page: 0, search: this.$refs.searchValue.value } });
+
       setTimeout(() => {
         window.location.reload()
       }, 100);
@@ -71,7 +86,6 @@ export default {
           }
         })
 
-        console.log()
         setTimeout(() => {
           window.location.reload()
         }, 100);
@@ -95,12 +109,22 @@ export default {
 <template>
   <h1 class="green">Users Table</h1>
 
-  <form @change="designationQuery" action="#">
-    <select ref="designation" class="select">
-      <option>ALL DESIGNATION</option>
-      <option v-for="option in designation" :key="option">{{ option }}</option>
-    </select>
-  </form>
+  <div class="filtering">
+    <form @change="designationQuery" action="#">
+      <select ref="designation" class="select">
+        <option>FILTER BY DESIGNATION</option>
+        <option v-for="option in designation" :key="option">{{ option }}</option>
+      </select>
+    </form>
+
+    <form @submit="e => {
+      e.preventDefault()
+      searchQuery()
+    }" class="search">
+      <input  type="text" name="search" ref="searchValue"  placeholder="Search..."/>
+      <button class="button">Search</button>
+    </form>
+  </div>
 
   <button class="button" @click="clearDesignationQuery">Clear filter</button>
 
@@ -125,7 +149,8 @@ export default {
   </table>
 
   <button class="button" :disabled="currentPage < 1" @click="prevPage">Prev</button>
-  <button class="button" :disabled="Number(currentPage) >= Math.floor(filteredUserData.length / 10)" @click="nextPage">Nex</button>
+  <button class="button" :disabled="Number(currentPage) >= Math.floor(filteredUserData.length / 10)"
+    @click="nextPage">Nex</button>
 
 </template>
 
