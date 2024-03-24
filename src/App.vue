@@ -12,7 +12,7 @@
     <div>
       <router-link to="/">Installs Bar Graph</router-link>
       <router-link to="/bar-graph">Installs Bar Graph</router-link>
-      <router-link to="/users-table">Users Table</router-link>
+      <router-link to="/users-table?page=0">Users Table</router-link>
     </div>
   </nav>
 

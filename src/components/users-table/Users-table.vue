@@ -6,6 +6,7 @@ export default {
       userData: [],
       designation: [],
       filteredUserData: [],
+      currentPage: Number(this.$router.currentRoute.value.query.page)
     };
   },
 
@@ -18,13 +19,11 @@ export default {
         const designation = data.map(item => item.designation);
         this.designation = new Set(designation);
 
-        // Check for initial designation query and apply filter
         const designationQuery = this.$route.query.designation;
         if (designationQuery) {
           this.filterByDesignation(designationQuery);
         } else {
-          // Load all data if no designation query
-          this.filteredUserData = this.userData.slice(); // Create a copy to avoid mutation
+          this.filteredUserData = this.userData.slice(); 
         }
       });
   },
@@ -40,6 +39,7 @@ export default {
       },
       immediate: true,
     },
+
   },
 
   methods: {
@@ -56,12 +56,18 @@ export default {
     },
 
     nextPage() {
-      this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) + 1 }  })
+      this.$router.push({
+        path: this.$router.currentRoute.value.fullPath, 
+        query: {
+          ...this.$route.query,  
+          page: Number(this.$route.query.page) + 1 
+        }  
+      })
       console.log(this.$router.currentRoute.value.fullPath)
     },
 
     prevPage() {
-      if(Number(this.$route.query.page) > 1){
+      if(Number(this.$route.query.page) > 0){
 
         this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) - 1 }  })
       }
@@ -93,7 +99,9 @@ export default {
     </tr>
 
     <tbody>
-      <tr v-for="(user, index) in filteredUserData" :key="user.name">
+      <tr v-for="(user, index) in filteredUserData.slice(currentPage * 10, (currentPage * 10) + 10)" 
+        :key="user.name"
+      >
         <td class="index">{{ index + 1 }}</td>
         <td class="td">{{ user.name }}</td>
         <td class="td">{{ user.surname }}</td>
