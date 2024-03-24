@@ -1,19 +1,19 @@
 .td,
 .th,
-.index{
+.index {
   /* border: 1px solid black; */
-  border-left: 1px solid ;
-  border-top: 1px solid ;
+  border-left: 1px solid;
+  border-top: 1px solid;
   padding-left: 20px;
   padding-right: 20px;
-  
+
 }
 
-.index{
+.index {
   text-align: center;
 }
 
-.button{
+.button {
   width: 100px;
   height: 30px;
   margin: 10px;
@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 
-.select{
+.select {
   height: 50px;
   text-align: center;
 }
@@ -34,14 +34,43 @@
   justify-content: space-between;
 }
 
-.search input{
+.search input {
   all: unset;
   border-bottom: 1px solid;
   height: 30px;
   padding-left: 10px;
 }
 
-.tdHighlight{
+.tdHighlight {
   background-color: yellow;
 }
 
+@media only screen and (max-width: 683px) {
+
+  .td,
+  .th,
+  .index {
+    font-size: small;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+
+  .td,
+  .th,
+  .index {
+    font-size: 10px;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+@media only screen and (max-width: 334px) {
+
+  .button{
+    margin-left: 5px;
+    width: 80px;
+  }
+}
