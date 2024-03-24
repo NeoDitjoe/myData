@@ -1,6 +1,9 @@
 <script>
 import { ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 
+const router = useRouter()
+const route = useRoute()
 
 function handleClick() {
   console.log(selectedDesignation);
@@ -12,7 +15,8 @@ export default {
   data() {
     return {
       userData: [],
-      designation: []
+      designation: [],
+      here: ''
     }
   },
 
@@ -28,6 +32,13 @@ export default {
         })
         this.designation = new Set(designation)
       });
+  },
+
+  methods: {
+    click() {
+      this.here = this.$refs.designation.value
+    },
+
   }
 }
 
@@ -38,10 +49,16 @@ export default {
 
   <h1 class="green">Users Table</h1>
 
-  <select>
-    <option>ALL DESIGNATION</option>
-    <option v-for="option in designation" :key = designation>{{ option }}</option>
-  </select>
+  <button @set="click">click me</button>
+  <p>{{ here }}</p>
+
+  <form @change="click" action="#">
+
+    <select ref="designation">
+      <option>ALL DESIGNATION</option>
+      <option v-for="option in designation" :key=designation>{{ option }}</option>
+    </select>
+  </form>
 
   <table style="border: 1px solid black;">
     <tr>
@@ -53,9 +70,9 @@ export default {
     </tr>
 
     <tbody>
-      <tr v-for="(user, index) in userData" :key = "user.name">
+      <tr v-for="(user, index) in userData" :key="user.name">
         <td class="index">{{ index + 1 }}</td>
-        <td class="td">{{user.name }}</td>
+        <td class="td">{{ user.name }}</td>
         <td class="td">{{ user.surname }}</td>
         <td class="td">{{ user.designation }}</td>
         <td class="td">{{ user.department }}</td>
