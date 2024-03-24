@@ -1,64 +1,87 @@
 <script>
-import { ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
-
-const router = useRouter()
-const route = useRoute()
-
-function handleClick() {
-  console.log(selectedDesignation);
-}
-
-const selectedDesignation = ref('')
 
 export default {
   data() {
     return {
       userData: [],
       designation: [],
-      here: ''
-    }
+      filteredUserData: [],
+    };
   },
 
   mounted() {
     fetch('../../../util/users.json')
       .then(res => res.json())
       .then(data => {
-        this.userData = data
+        this.userData = data;
 
-        const designation = data.map((item) => {
-          const designation = item.designation
-          return designation
-        })
-        this.designation = new Set(designation)
+        const designation = data.map(item => item.designation);
+        this.designation = new Set(designation);
+
+        // Check for initial designation query and apply filter
+        const designationQuery = this.$route.query.designation;
+        if (designationQuery) {
+          this.filterByDesignation(designationQuery);
+        } else {
+          // Load all data if no designation query
+          this.filteredUserData = this.userData.slice(); // Create a copy to avoid mutation
+        }
       });
   },
 
+  watch: {
+    '$route.query.designation': {
+      handler(newDesignation) {
+        if (newDesignation) {
+          this.filterByDesignation(newDesignation);
+        } else {
+          this.filteredUserData = this.userData.slice();
+        }
+      },
+      immediate: true,
+    },
+  },
+
   methods: {
-    click() {
-      this.here = this.$refs.designation.value
+    filterByDesignation(designation) {
+      this.filteredUserData = this.userData.filter(user => user.designation === designation);
     },
 
-  }
-}
+    designationQuery() {
+      this.$router.push({ query: {...this.$route.query, designation: this.$refs.designation.value } });
+    },
 
+    clearDesignationQuery() {
+      this.$router.push({ path: '/users-table' });
+    },
+
+    nextPage() {
+      this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) + 1 }  })
+      console.log(this.$router.currentRoute.value.fullPath)
+    },
+
+    prevPage() {
+      if(Number(this.$route.query.page) > 1){
+
+        this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) - 1 }  })
+      }
+    },
+  },
+};
 
 </script>
 
 <template>
-
   <h1 class="green">Users Table</h1>
 
-  <button @set="click">click me</button>
-  <p>{{ here }}</p>
-
-  <form @change="click" action="#">
-
+  <form @change="designationQuery" action="#">
     <select ref="designation">
       <option>ALL DESIGNATION</option>
-      <option v-for="option in designation" :key=designation>{{ option }}</option>
+      <option v-for="option in designation" :key="option">{{ option }}</option>
     </select>
   </form>
+
+  <button @click="clearDesignationQuery">Clear filter</button>
 
   <table style="border: 1px solid black;">
     <tr>
@@ -70,7 +93,7 @@ export default {
     </tr>
 
     <tbody>
-      <tr v-for="(user, index) in userData" :key="user.name">
+      <tr v-for="(user, index) in filteredUserData" :key="user.name">
         <td class="index">{{ index + 1 }}</td>
         <td class="td">{{ user.name }}</td>
         <td class="td">{{ user.surname }}</td>
@@ -78,8 +101,11 @@ export default {
         <td class="td">{{ user.department }}</td>
       </tr>
     </tbody>
-
   </table>
+
+  <button @click="prevPage">Prev</button>
+  <button @click="nextPage">Nex</button>
+
 </template>
 
 <style>
