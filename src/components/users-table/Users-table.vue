@@ -63,16 +63,19 @@ export default {
     },
 
     nextPage() {
-      this.$router.push({
-        path: this.$router.currentRoute.value.fullPath,
-        query: {
-          ...this.$route.query,
-          page: Number(this.$route.query.page) + 1
-        }
-      })
-      setTimeout(() => {
-        window.location.reload()
-      }, 100);
+      if (Number(this.$route.query.page) < Math.floor(this.filteredUserData.length / 10)) {
+        this.$router.push({
+          query: {
+            ...this.$route.query,
+            page: Number(this.$route.query.page) + 1
+          }
+        })
+
+        console.log()
+        setTimeout(() => {
+          window.location.reload()
+        }, 100);
+      }
     },
 
     prevPage() {
@@ -93,13 +96,13 @@ export default {
   <h1 class="green">Users Table</h1>
 
   <form @change="designationQuery" action="#">
-    <select ref="designation">
+    <select ref="designation" class="select">
       <option>ALL DESIGNATION</option>
       <option v-for="option in designation" :key="option">{{ option }}</option>
     </select>
   </form>
 
-  <button @click="clearDesignationQuery">Clear filter</button>
+  <button class="button" @click="clearDesignationQuery">Clear filter</button>
 
   <table style="border: 1px solid black;">
     <tr>
@@ -121,8 +124,8 @@ export default {
     </tbody>
   </table>
 
-  <button @click="prevPage">Prev</button>
-  <button @click="nextPage">Nex</button>
+  <button class="button" :disabled="currentPage < 1" @click="prevPage">Prev</button>
+  <button class="button" :disabled="Number(currentPage) >= Math.floor(filteredUserData.length / 10)" @click="nextPage">Nex</button>
 
 </template>
 

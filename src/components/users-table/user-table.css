@@ -13,4 +13,21 @@
   text-align: center;
 }
 
+.button{
+  width: 100px;
+  height: 30px;
+  margin: 10px;
+  background-color: rgb(235, 123, 43);
+  border: none;
 
+  cursor: pointer;
+}
+
+.select{
+  height: 50px;
+  text-align: center;
+}
+
+.select option:hover{
+  background-color: blueviolet;
+}
