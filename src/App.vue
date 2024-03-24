@@ -14,7 +14,6 @@ export default {
 
   methods: {
     highlightLink(){
-      console.log(this.$router.currentRoute.value.path)
       this.currentPage = this.$router.currentRoute.value.path
     }
   }

@@ -1,11 +1,5 @@
 <script>
 
-fetch('../../../util/pieChart.json')
-  .then(res => res.json())
-  .then(data => {
-    console.log(data.map((item) => item.year))
-  })
-
 import { Pie } from 'vue-chartjs'
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 ChartJS.register(ArcElement, Tooltip, Legend)
