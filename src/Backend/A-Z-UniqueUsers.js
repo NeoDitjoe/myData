@@ -6,7 +6,7 @@ readFile('src/backend/newFiles/uniqueUsers.json', 'utf8', (error, data) => {
    *  catch the error when the path does not exist
    */
   if (error) {
-    console.error('Failed reading file!', error);
+    console.error('Failed to reading file!', error);
     return;
   }
 

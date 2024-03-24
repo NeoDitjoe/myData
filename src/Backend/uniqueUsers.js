@@ -4,7 +4,7 @@ readFile('util/usersBackEnd.json', 'utf8', (err, data) => {
 
   //If path does not exist function will stop due to the return used
   if (err) {
-    console.error('Failed reading file!');
+    console.error('Failed to reading file!');
     return;
   }
 
