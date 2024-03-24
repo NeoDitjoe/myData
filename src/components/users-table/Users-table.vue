@@ -6,7 +6,8 @@ export default {
       userData: [],
       designation: [],
       filteredUserData: [],
-      currentPage: Number(this.$router.currentRoute.value.query.page)
+      currentPage: Number(this.$router.currentRoute.value.query.page),
+      highlightSearchResults: null
     };
   },
 
@@ -31,20 +32,6 @@ export default {
       });
   },
 
-  watch: {
-    '$route.query.designation': {
-      handler(selectedDesignation) {
-        if (selectedDesignation) {
-          this.filterByDesignation(selectedDesignation);
-        } else {
-          this.filteredUserData = this.userData.slice();
-        }
-      },
-      immediate: true,
-    },
-
-  },
-
   methods: {
     filterByDesignation(designation) {
       this.filteredUserData = this.userData.filter(user => user.designation === designation);
@@ -61,16 +48,17 @@ export default {
       let searchResults = []
 
       this.userData.map((user) => {
-        
-        if(user.designation === searchInput 
-        || user.name === searchInput 
-        || user.surname === searchInput 
-        || user.department === searchInput 
-        ){
-          searchResults.push(user)
-        }
+
+          if (user.designation === searchInput
+            || user.name === searchInput
+            || user.surname === searchInput
+            || user.department === searchInput
+          ) {
+            searchResults.push(user)
+          }
       });
 
+      this.highlightSearchResults = searchInput
       this.filteredUserData = searchResults
     },
 
@@ -134,12 +122,14 @@ export default {
       e.preventDefault()
       searchQuery()
     }" class="search">
-      <input required type="text" name="search" ref="searchValue"  placeholder="Search..."/>
+      <input required type="text" name="search" ref="searchValue" placeholder="Search..." />
       <button class="button">Search</button>
     </form>
   </div>
 
   <button class="button" @click="clearDesignationQuery">Clear filter</button>
+
+  <p v-if="highlightSearchResults">Results for:{{ highlightSearchResults }}</p>
 
   <table style="border: 1px solid black;">
     <tr>
@@ -153,10 +143,10 @@ export default {
     <tbody>
       <tr v-for="(user, index) in filteredUserData.slice(currentPage * 10, (currentPage * 10) + 10)" :key="user.name">
         <td class="index">{{ index + 1 + (currentPage * 10) }}</td>
-        <td class="td">{{ user.name }}</td>
-        <td class="td">{{ user.surname }}</td>
-        <td class="td">{{ user.designation }}</td>
-        <td class="td">{{ user.department }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightSearchResults === user.name}">{{ user.name }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightSearchResults === user.surname }">{{ user.surname }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightSearchResults === user.designation }">{{ user.designation }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightSearchResults === user.department}">{{ user.department }}</td>
       </tr>
     </tbody>
   </table>
