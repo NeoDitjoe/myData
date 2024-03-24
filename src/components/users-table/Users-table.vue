@@ -49,10 +49,17 @@ export default {
 
     designationQuery() {
       this.$router.push({ query: { page: 0, designation: this.$refs.designation.value } });
+      setTimeout(() => {
+        window.location.reload()
+      }, 100);
     },
 
     clearDesignationQuery() {
       this.$router.push({ path: '/users-table', query: {page: 0} });
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 100);
     },
 
     nextPage() {
