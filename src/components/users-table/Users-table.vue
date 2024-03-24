@@ -48,11 +48,11 @@ export default {
     },
 
     designationQuery() {
-      this.$router.push({ query: {...this.$route.query, designation: this.$refs.designation.value } });
+      this.$router.push({ query: { page: 0, designation: this.$refs.designation.value } });
     },
 
     clearDesignationQuery() {
-      this.$router.push({ path: '/users-table' });
+      this.$router.push({ path: '/users-table', query: {page: 0} });
     },
 
     nextPage() {
@@ -63,13 +63,18 @@ export default {
           page: Number(this.$route.query.page) + 1 
         }  
       })
-      console.log(this.$router.currentRoute.value.fullPath)
+      setTimeout(() => {
+        window.location.reload()
+      }, 100);
     },
 
     prevPage() {
       if(Number(this.$route.query.page) > 0){
-
         this.$router.push({ query: {...this.$route.query,  page: Number(this.$route.query.page) - 1 }  })
+
+        setTimeout(() => {
+        window.location.reload()
+      }, 100);
       }
     },
   },
@@ -102,7 +107,7 @@ export default {
       <tr v-for="(user, index) in filteredUserData.slice(currentPage * 10, (currentPage * 10) + 10)" 
         :key="user.name"
       >
-        <td class="index">{{ index + 1 }}</td>
+      <td class="index">{{ index + 1 +(currentPage * 10) }}</td>
         <td class="td">{{ user.name }}</td>
         <td class="td">{{ user.surname }}</td>
         <td class="td">{{ user.designation }}</td>
