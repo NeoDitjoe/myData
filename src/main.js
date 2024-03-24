@@ -1,6 +1,27 @@
 import './assets/main.css'
 
+import { createMemoryHistory, createRouter } from 'vue-router'
 import { createApp } from 'vue'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import pieGraph from '../src/components/instPieChart/instPieChart.vue'
+import barGraph from '../src/components/bar-graph/Bar-graph.vue'
+import UsersTable from '../src/components/users-table/Users-table.vue'
+
+
+const routes = [
+  { path: '/', component: pieGraph },
+  { path: '/bar-graph', component: barGraph },
+  { path: '/users-table', component: UsersTable },
+
+]
+
+const router = createRouter({
+  history: createMemoryHistory(),
+  routes,
+  base: '/about'
+})
+
+const app = createApp(App)
+app.use(router)
+app.mount('#app')
