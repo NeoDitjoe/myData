@@ -30,9 +30,11 @@
   margin-top: 80px;
 }
 
-.nav a:focus {
+.nav a:focus,
+.active{
   background-color: white;
 }
+
 
 @media only screen and (max-width: 525px) {
   .nav {
