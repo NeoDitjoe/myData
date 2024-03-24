@@ -8,7 +8,8 @@ export default {
       filteredUserData: [],
       currentPage: Number(this.$router.currentRoute.value.query.page),
       highlightResults: null,
-      selectedDesignation: null
+      selectedDesignation: null,
+      searchInputResults: null
     };
   },
 
@@ -53,13 +54,10 @@ export default {
 
       this.userData.map((user) => {
 
-        const department = user.department.toLowerCase()
-        const designation = user.designation.toLowerCase()
-
-          if (department.includes(searchInput.toLowerCase())
+          if (user.designation === searchInput
             || user.name === searchInput
             || user.surname === searchInput
-            || designation.includes(searchInput.toLowerCase())
+            || user.department === searchInput
           ) {
             searchResults.push(user)
           }
@@ -67,6 +65,7 @@ export default {
 
       this.highlightResults = searchInput
       this.filteredUserData = searchResults
+      this.searchInputResults = this.$router.currentRoute.value.query.search
     },
 
     searchQuery() {
@@ -137,7 +136,7 @@ export default {
 
   <button class="button" @click="clearDesignationQuery">Clear filter</button>
 
-  <p v-if="highlightResults">Results for: {{ highlightResults }}</p>
+  <p v-if="searchInputResults">Results for: {{ highlightResults }}</p>
   <p v-if="selectedDesignation">Results for: {{ selectedDesignation }}</p>
 
   <table style="border: 1px solid black;">
@@ -154,8 +153,8 @@ export default {
         <td class="index">{{ index + 1 + (currentPage * 10) }}</td>
         <td v-bind:class="{ td: true, tdHighlight: highlightResults === user.name}">{{ user.name }}</td>
         <td v-bind:class="{ td: true, tdHighlight: highlightResults === user.surname }">{{ user.surname }}</td>
-        <td v-bind:class="{ td: true, tdHighlight: user.designation.toLowerCase().includes(highlightResults.toLowerCase())}">{{ user.designation }}</td>
-        <td v-bind:class="{ td: true, tdHighlight: user.department.toLowerCase().includes(highlightResults.toLowerCase())}">{{ user.department }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightResults === user.designation }">{{ user.designation }}</td>
+        <td v-bind:class="{ td: true, tdHighlight: highlightResults === user.department}">{{ user.department }}</td>
       </tr>
     </tbody>
   </table>
