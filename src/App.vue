@@ -1,5 +1,4 @@
 <script setup>
-import currentView from './Routing.js'
 
 </script>
 
@@ -11,9 +10,6 @@ import currentView from './Routing.js'
     </div>
     
     <div>
-      <!-- <a href="#/">Installs Pie Chart</a> |
-      <a href="#/bar-graph">Installs Bar Graph</a> |
-      <a href="#/users-table">Users Table</a> -->
       <router-link to="/">Installs Bar Graph</router-link>
       <router-link to="/bar-graph">Installs Bar Graph</router-link>
       <router-link to="/users-table">Users Table</router-link>
@@ -21,7 +17,6 @@ import currentView from './Routing.js'
   </nav>
 
   <div class="body">
-    <!-- <component :is="currentView" /> -->
     <router-view />
   </div>
 </template>

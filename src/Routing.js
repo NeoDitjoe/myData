@@ -1,24 +1,20 @@
-import { ref, computed } from 'vue'
+import { createWebHistory, createRouter } from 'vue-router'
 
-import instPieChart from './components/instPieChart/instPieChart.vue';
-import BarGraph from './components//bar-graph/Bar-graph.vue';
-import NotFound from './components/NotFound.vue'
-import UsersTable from './components/users-table/Users-table.vue'
+import pieGraph from '../src/components/instPieChart/instPieChart.vue'
+import barGraph from '../src/components/bar-graph/Bar-graph.vue'
+import UsersTable from '../src/components/users-table/Users-table.vue'
 
-const routes = {
-  '/': instPieChart,
-  '/bar-graph': BarGraph,
-  '/users-table': UsersTable
-}
 
-const currentPath = ref(window.location.hash)
+const routes = [
+  { path: '/', component: pieGraph },
+  { path: '/bar-graph', component: barGraph },
+  { path: '/users-table', component: UsersTable },
 
-window.addEventListener('hashchange', () => {
-  currentPath.value = window.location.hash
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
 })
 
-const currentView = computed(() => {
-  return routes[currentPath.value.slice(1) || '/'] || NotFound
-})
-
-export default currentView
+export default router
