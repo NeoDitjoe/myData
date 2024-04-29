@@ -5,7 +5,7 @@ export async function addData(){
 
   const db = client.db('data')
 
-  await db.collection('Monthly-installs')
+  await db.collection('monthly-installs')
     .insertMany([
       {
         "month": "2023-08",
