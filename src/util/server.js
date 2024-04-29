@@ -8,9 +8,8 @@ app.use(bodyParser.json())
 
 const port = process.env.PORT || 5100
 
-app.use('/api/hello-world', (req, res) => {
-  res.send('Hello World')
-})
+import add from './database/add-data.js'
+app.use('/api/insert', add)
 
 app.listen(port, () => {
   console.log(`connected to server ${port}`)
