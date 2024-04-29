@@ -5,29 +5,42 @@ export async function addData(){
 
   const db = client.db('data')
 
-  await db.collection('yearly-installs')
+  await db.collection('Monthly-installs')
     .insertMany([
       {
-        "year": "2020",
-        "numInstalls": 1
+        "month": "2023-08",
+        "numInstalls": 29
       },
       {
-        "year": "2021",
+        "month": "2023-09",
+        "numInstalls": 16
+      },
+      {
+        "month": "2023-10",
+        "numInstalls": 17
+      },
+      {
+        "month": "2023-11",
+        "numInstalls": 10
+      },
+      {
+        "month": "2023-12",
         "numInstalls": 12
       },
       {
-        "year": "2022",
-        "numInstalls": 77
+        "month": "2024-01",
+        "numInstalls": 8
       },
       {
-        "year": "2023",
-        "numInstalls": 226
+        "month": "2024-02",
+        "numInstalls": 4
       },
       {
-        "year": "2024",
-        "numInstalls": 13
+        "month": "2024-03",
+        "numInstalls": 1
       }
-    ])
+    ]
+    )
 }
 
 const router = express.Router()
