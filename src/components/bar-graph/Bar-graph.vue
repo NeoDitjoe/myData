@@ -40,7 +40,6 @@ export default {
   <div class="bar-graph">
     <Bar :data="chartData" v-if="loadData" />
   </div>
-  <button @click="monthlyInstalls">click me</button>
 </template>
 
 <style>
