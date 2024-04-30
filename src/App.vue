@@ -16,16 +16,6 @@ export default {
   methods: {
     highlightLink() {
       this.currentPage = this.$router.currentRoute.value.path
-    },
-
-    async addData() {
-      try {
-        const results = await axios.post('http://localhost:5100/api/insert')
-        console.log(results)
-        alert('sucess')
-      } catch (error) {
-        alert('Error')
-      }
     }
   }
 }
@@ -50,7 +40,6 @@ export default {
 
   <div class="body">
     <router-view />
-    <button @click="addData">Add Data</button>
   </div>
 </template>
 
